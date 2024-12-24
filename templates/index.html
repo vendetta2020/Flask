@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload and Download</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eaf6ff;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #004080;
+        }
+
+        /* Hero section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-text {
+            max-width: 50%;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-text button {
+            background-color: #004080;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hero-text button:hover {
+            background-color: #0066cc;
+        }
+
+        .hero-image {
+            max-width: 40%;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Services section */
+        .services {
+            margin: 40px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: #004080;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #004080;
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #66b3ff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form Section */
+        .form-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .form-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-section label {
+            font-size: 1rem;
+            color: #004080;
+        }
+
+        .form-section input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-section button {
+            background-color: #004080;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-section button:hover {
+            background-color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Website Upload Photo ^^</h1>
+                <p>Use our platform to upload and download your important files securely.</p>
+                <button>Get Started</button>
+            </div>
+            <div class="hero-image">
+                <img src="https://via.placeholder.com/400" alt="Upload Files">
+            </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section">
+            <h2>Upload File</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="image">Choose a file:</label>
+                <input type="file" id="image" name="image">
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h1>Uploaded Images</h1>
+            <form action="/download" method="get">
+                <table border="1">
+                    <tr>
+                        <th>Image</th>
+                        <th>Download</th>
+                    </tr>
+                    {% for filename in images %}
+                    <tr>
+                        <td><img src="{{ url_for('uploaded_file', filename=filename) }}" width="100"></td>
+                        <td>
+                            <a href="{{ url_for('download_file', filename=filename) }}">Download</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        </div>
+
+        <!-- Services Section -->
+        <div class="services">
+            <div class="service-card">
+                <h3>Shalwa Ridani</h3>
+                <p>065002400040</p>
+            </div>
+            <div class="service-card">
+                <h3>Aliviendy Maheswara</h3>
+                <p>065002400043</p>
+            </div>
+            <div class="service-card">
+                <h3>Olivia Egla</h3>
+                <p>065002400052</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; made by Kelompok E<a href="#"> Jaringan Komputer - Sistem Informasi</a></p>
+        </div>
+    </div>
+</body>
+</html>
